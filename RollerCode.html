@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Xanathar's Dice To Everything</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="D20.ico">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+
+<body>
+    <!-- The following code represents the structure of a web page including a navigation bar and dice rolling functionality -->
+
+    <!-- Start of navigation bar with links to different sections of the page -->
+    <div class="">
+        <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 fixed-top">
+            <div class="container">
+                <a href="#" class="navbar-brand">Xanathar's Dice To Everything</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu"> <span
+                        class="navbar-toggler-icon"></span></button>
+
+                <div class="collapse navbar-collapse" id="navmenu">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a href="#learn" class="nav-link" data-bs-toggle="popover" data-bs-trigger="focus"
+                                title="Saving Rolls"
+                                data-bs-content="You can have rolls prepared for quick use, and save them individually with their save button">Saving</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#questions" class="nav-link" data-bs-toggle="popover" data-bs-trigger="focus"
+                                title="Use Guide"
+                                data-bs-content="Click on the dice to add them to the dice box, you can also type them manually. ">Guide</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#instructors" class="nav-link" data-bs-toggle="popover" data-bs-trigger="focus"
+                                title="Syntax Guide"
+                                data-bs-content="Dice should be seperated by spaces (2d6 2d8) with modifiers being seperated by + or - (2d6+5, 1d8 2d4-4, etc)">Syntax</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- End of navigation bar -->
+
+    <!-- Start of container with dice rolling functionality -->
+    <div class="container mt-5 mb-5">
+        <div class="row">
+            <div class="col-sm-12 bg-gray text-light p-2 bg-secondary border border-dark">
+                <h3>Roll Dice</h3>
+            </div>
+
+            <!-- Input box for entering dice rolls and buttons to clear or roll dice -->
+            <div class="col-sm-12 bg-light text-grey p-3 bg-secondary border border-info border-5">
+                <div class="input-group mb-3 input-group-lg">
+                    <button class="input-group-text bg-muted text-grey" onclick="clearText()">Clear</button>
+                    <input type="text" class="form-control" placeholder="Enter dice to roll (2d6)" id="diceInput">
+                    <button class="input-group-text bg-primary text-light" onclick="rollDice()"> Roll</button>
+
+                </div>
+                <h3 id="result">Rolls:</h3>
+            </div>
+
+                <!-- Container for dice selection options -->
+                <div class="col-sm-12 bg-light text-grey p-3 border border-secondary border-2 row m-0 align-items-center">
+
+                <!-- Spacer column -->
+                <div class="col-lg-2 col-md-0 col-sm-0 col-xs-0"></div>
+
+                <!-- Individual dice option for 4-sided dice -->
+                <div class="col-lg-1 col-md-2 col-sm-4 col-xs-1 d-flex justify-content-center">
+                    <div class="bg-danger shape text-light d-flex justify-content-center align-items-center"
+                        onclick="addDice(4)" style="clip-path: polygon(50% 0%, 0% 100%, 100% 100%);">
+                        <h3 style="margin-top: 25%; font-size: 38px;">4</h3>
+                    </div>
+                </div>
+
+                <!-- Individual dice option for 6-sided dice -->
+                <div class="col-lg-1 col-md-2 col-sm-4 col-xs-1 d-flex justify-content-center">
+                    <div class="bg-info shape text-light d-flex justify-content-center align-items-center"
+                        onclick="addDice(6)">
+                        <h3>6</h3>
+                    </div>
+                </div>
+
+                <!-- Individual dice option for 8-sided dice -->
+                <div class="col-lg-1 col-md-2 col-sm-4 col-xs-6 col-xs-1 d-flex justify-content-center">
+                    <div class="bg-warning shape text-light d-flex justify-content-center align-items-center"
+                        onclick="addDice(8)"
+                        style="clip-path: polygon(50% 0, 90% 25%, 90% 75%, 50% 100%, 10% 75%, 10% 25%);">
+                        <h3>8</h3>
+                    </div>
+                </div>
+
+                <!-- Individual dice option for 10-sided dice -->
+                <div class="col-lg-1 col-md-2 col-sm-4 col-xs-1 d-flex justify-content-center">
+                    <div class="bg-primary shape text-light d-flex justify-content-center align-items-center"
+                        onclick="addDice(10)"
+                        style="clip-path: polygon(50% 0, 100% 40%, 100% 60%, 50% 100%, 0 60%, 0 40%);">
+                        <h3>10</h3>
+                    </div>
+                </div>
+
+                <!-- Individual dice option for 12-sided dice -->
+                <div class="col-lg-1 col-md-2 col-sm-4 d-flex justify-content-center">
+                    <div class="bg-info shape text-light d-flex justify-content-center align-items-center"
+                        onclick="addDice(12)"
+                        style="clip-path: polygon(50% 0%, 80% 10%, 100% 35%, 100% 70%, 80% 90%, 50% 100%, 20% 90%, 0% 70%, 0% 35%, 20% 10%);">
+                        <h3>12</h3>
+                    </div>
+                </div>
+
+                <!-- Individual dice option for 20-sided dice -->
+                <div class="col-lg-1 col-md-2 col-sm-4 d-flex justify-content-center">
+                    <div class="bg-danger shape text-light d-flex justify-content-center align-items-center"
+                        onclick="addDice(20)"
+                        style="clip-path: polygon(50% 0, 94% 28%, 94% 72%, 50% 100%, 6% 72%, 6% 28%)">
+                        <h3>20</h3>
+                    </div>
+                </div>
+
+                <!-- Individual dice option for custom-sided dice -->
+                <div class="col-lg-1 col-md-6 col-sm-6 d-flex justify-content-center">
+                    <button class="bg-success shape text-light d-flex justify-content-center align-items-center"
+                        type="button" data-bs-toggle="modal" data-bs-target="#myModal"
+                        style="clip-path: polygon(50% 0, 94% 28%, 94% 72%, 50% 100%, 6% 72%, 6% 28%)">
+                        <h3>i</h3>
+                    </button>
+                </div>
+
+                <!-- Individual dice option to add a modifier -->
+                <div class="col-lg-1 col-md-6 col-sm-6 d-flex justify-content-center">
+                    <div class="bg-secondary shape text-light d-flex justify-content-center align-items-center"
+                        type="button" data-bs-toggle="modal" data-bs-target="#modModal"
+                        style="clip-path: polygon(0 40%, 40% 40%, 40% 0, 60% 0, 60% 40%, 100% 40%, 100% 60%, 60% 60%, 60% 100%, 40% 100%, 40% 60%, 0 60%);">
+                        <h3>+</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Saved Rolls Title and horizontal line -->
+        <h1 class="text-center mt-5">Saved Rolls</h1>
+        <hr class="mb-4" />
+
+        <div class="row">
+            <!-- Card to display saved roll -->
+            <div class="card col-lg-2 col-md-6 ">
+                <div class="card-header">
+
+                    <!-- Input field for title -->
+                    <input type="text" class="form-control" id="savedTitleOne" placeholder="Enter title"
+                        onpaste="return false;" oninput="validateInput(event)" value="Three Dice">
+                </div>
+                <div class="card-body">
+                    
+                    <!-- Textarea for roll data -->
+                    <textarea class="form-control" id="savedRollOne" rows="1" onpaste="return false;"
+                        oninput="validateInput(event)" placeholder="Enter text here">3d6</textarea>
+                </div>
+
+                <!-- Buttons for rolling and saving roll -->
+                <div class="card-footer">
+                    <button class="btn btn-primary mr-2" onclick="rollText(0)">Roll</button>
+                    <button class="btn btn-secondary saveButton" data-bs-toggle="modal" data-bs-target="#saveModal"
+                        onclick="saveRoll(0)">Save</button>
+                </div>
+            </div>
+
+            <!-- Card to display saved roll -->
+            <div class="card col-lg-2 col-md-6 ">
+                <div class="card-header">
+
+                    <!-- Input field for title -->
+                    <input type="text" class="form-control" id="savedTitleTwo" placeholder="Enter title"
+                        onpaste="return false;" oninput="validateInput(event)" value="Ten Dice">
+                </div>
+                <div class="card-body">
+
+                    <!-- Textarea for roll data -->
+                    <textarea class="form-control" id="savedRollTwo" rows="1" onpaste="return false;"
+                        oninput="validateInput(event)" placeholder="Enter text here">10d6</textarea>
+                </div>
+
+                <!-- Buttons for rolling and saving roll -->
+                <div class="card-footer">
+                    <button class="btn btn-primary mr-2" onclick="rollText(1)">Roll</button>
+                    <button class="btn btn-secondary saveButton" data-bs-toggle="modal" data-bs-target="#saveModal"
+                        onclick="saveRoll(1)">Save</button>
+                </div>
+            </div>
+
+            <!-- Card to display saved roll -->
+            <div class="card col-lg-2 col-md-6 ">
+                <div class="card-header">
+
+                    <!-- Input field for title -->
+                    <input type="text" class="form-control" id="savedTitleThree" placeholder="Enter title"
+                        onpaste="return false;" oninput="validateInput(event)" value="Two Half Dice">
+                </div>
+                <div class="card-body">
+
+                    <!-- Textarea for roll data -->
+                    <textarea class="form-control" id="savedRollThree" rows="1" onpaste="return false;"
+                        oninput="validateInput(event)" placeholder="Enter text here">2d3</textarea>
+                </div>
+
+                <!-- Buttons for rolling and saving roll -->
+                <div class="card-footer">
+                    <button class="btn btn-primary mr-2" onclick="rollText(2)">Roll</button>
+                    <button class="btn btn-secondary saveButton" data-bs-toggle="modal" data-bs-target="#saveModal"
+                        onclick="saveRoll(2)">Save</button>
+                </div>
+            </div>
+
+            <!-- Card to display saved roll -->
+            <div class="card col-lg-2 col-md-6 ">
+                <div class="card-header">
+
+                    <!-- Input field for title -->
+                    <input type="text" class="form-control" id="savedTitleFour" placeholder="Enter title"
+                        onpaste="return false;" oninput="validateInput(event)" value="Double Sized Dice">
+                </div>
+                <div class="card-body">
+
+                    <!-- Textarea for roll data -->
+                    <textarea class="form-control" id="savedRollFour" rows="1" onpaste="return false;"
+                        oninput="validateInput(event)" placeholder="Enter text here">2d12</textarea>
+                </div>
+
+                <!-- Buttons for rolling and saving roll -->
+                <div class="card-footer">
+                    <button class="btn btn-primary mr-2" onclick="rollText(3)">Roll</button>
+                    <button class="btn btn-secondary saveButton" data-bs-toggle="modal" data-bs-target="#saveModal"
+                        onclick="saveRoll(3)">Save</button>
+                </div>
+            </div>
+
+            <!-- Card to display saved roll -->
+            <div class="card col-lg-2 col-md-6 ">
+                <div class="card-header">
+
+                    <!-- Input field for title -->
+                    <input type="text" class="form-control" id="savedTitleFive" placeholder="Enter title"
+                        onpaste="return false;" oninput="validateInput(event)" value="Card Picker">
+                </div>
+                <div class="card-body">
+
+                    <!-- Textarea for roll data -->
+                    <textarea class="form-control" id="savedRollFive" rows="1" onpaste="return false;"
+                        oninput="validateInput(event)" placeholder="Enter text here">1d52</textarea>
+                </div>
+
+                <!-- Buttons for rolling and saving roll -->
+                <div class="card-footer">
+                    <button class="btn btn-primary mr-2" onclick="rollText(4)">Roll</button>
+                    <button class="btn btn-secondary saveButton" data-bs-toggle="modal" data-bs-target="#saveModal"
+                        onclick="saveRoll(4)">Save</button>
+                </div>
+            </div>
+
+            <!-- Card to display saved roll -->
+            <div class="card col-lg-2 col-md-6 ">
+                <div class="card-header">
+                    <input type="text" class="form-control" id="savedTitleSix" placeholder="Enter title"
+                        onpaste="return false;" oninput="validateInput(event)" value="Percent Die">
+                </div>
+                <div class="card-body">
+
+                    <!-- Textarea for roll data -->
+                    <textarea class="form-control" id="savedRollSix" rows="1" onpaste="return false;" oninput="validateInput(event)"
+                        placeholder=" Enter text here">1d100</textarea>
+                </div>
+
+                <!-- Buttons for rolling and saving roll -->
+                <div class="card-footer">
+                    <button class="btn btn-primary mr-2" onclick="rollText(5)">Roll</button>
+                    <button class="btn btn-secondary saveButton" data-bs-toggle="modal" data-bs-target="#saveModal"
+                        onclick="saveRoll(5)">Save</button>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <footer class="p-5 bg-dark text-white text-center position-relative mt-5">
+        <div class="container">
+            <p class="lead">Developed by <a href="https://www.linkedin.com/in/ashton-torgerud-a3b54025b/"
+                    style=" color: white;">Ashton Torgerud</a> |
+                <a href="mailto:ashtorged@outlook.com" style=" color: white;">ashtorged@outlook.com</a>
+            </p>
+            <a href="" class="position-absolute bottom-0 end-0 p-5">
+                <button type="button" class="btn btn-dark btn-outline-secondary" onclick="removeLocalStorage()">Reset
+                    LocalStorage</button>
+            </a>
+        </div>
+    </footer>
+
+    <style>
+        body::before {
+            display: block;
+            content: '';
+            height: 60px;
+        }
+
+        .shape {
+            display: block;
+            width: 80px;
+            height: 80px;
+            padding: 0px;
+            margin: 0px;
+            font-weight: bold;
+            user-select: none;
+        }
+
+        .shape h3 {
+            font-size: 38px;
+            text-shadow: 1px 1px 1px black;
+        }
+    </style>
+
+    <script>
+
+        const inputField = document.getElementById('diceInput');
+
+        let agreed;
+
+        console.log(localStorage.getItem("XanatharsDiceToEverthingAgreeMent"));
+
+        if (localStorage.getItem("XanatharsDiceToEverthingAgreeMent")) {
+            agreed = localStorage.getItem("XanatharsDiceToEverthingAgreeMent");
+        }
+
+
+        if (agreed == "Permission") {
+            Agree();
+            const saveButtons = document.querySelectorAll('.saveButton');
+            saveButtons.forEach(button => {
+                button.removeAttribute('data-bs-toggle');
+                button.removeAttribute('data-bs-target');
+            });
+
+
+            document.getElementById('savedTitleOne').value = localStorage.getItem("savedTitleOne");
+            document.getElementById('savedRollOne').value = localStorage.getItem("savedRollOne");
+
+            document.getElementById('savedTitleTwo').value = localStorage.getItem("savedTitleTwo");
+            document.getElementById('savedRollTwo').value = localStorage.getItem("savedRollTwo");
+
+            document.getElementById('savedTitleThree').value = localStorage.getItem("savedTitleThree");
+            document.getElementById('savedRollThree').value = localStorage.getItem("savedRollThree");
+
+            document.getElementById('savedTitleFour').value = localStorage.getItem("savedTitleFour");
+            document.getElementById('savedRollFour').value = localStorage.getItem("savedRollFour");
+
+            document.getElementById('savedTitleFive').value = localStorage.getItem("savedTitleFive");
+            document.getElementById('savedRollFive').value = localStorage.getItem("savedRollFive");
+
+            document.getElementById('savedTitleSix').value = localStorage.getItem("savedTitleSix");
+            document.getElementById('savedRollSix').value = localStorage.getItem("savedRollSix");
+
+
+        }
+
+
+        function saveRoll(slot) {
+            if (localStorage.getItem("XanatharsDiceToEverthingAgreeMent") != "Permission") {
+                return;
+            }
+
+            let titles = [
+                document.getElementById('savedTitleOne').value,
+                document.getElementById('savedTitleTwo').value,
+                document.getElementById('savedTitleThree').value,
+                document.getElementById('savedTitleFour').value,
+                document.getElementById('savedTitleFive').value,
+                document.getElementById('savedTitleSix').value,
+            ];
+            let rolls = [
+                document.getElementById('savedRollOne').value,
+                document.getElementById('savedRollTwo').value,
+                document.getElementById('savedRollThree').value,
+                document.getElementById('savedRollFour').value,
+                document.getElementById('savedRollFive').value,
+                document.getElementById('savedRollSix').value,
+            ];
+
+            switch (slot) {
+                case 0:
+                    localStorage.setItem("savedTitleOne", titles[slot]);
+                    localStorage.setItem("savedRollOne", rolls[slot]);
+                    break;
+
+                case 1:
+                    localStorage.setItem("savedTitleTwo", titles[slot]);
+                    localStorage.setItem("savedRollTwo", rolls[slot]);
+                    break;
+
+                case 2:
+                    localStorage.setItem("savedTitleThree", titles[slot]);
+                    localStorage.setItem("savedRollThree", rolls[slot]);
+                    break;
+
+                case 3:
+                    localStorage.setItem("savedTitleFour", titles[slot]);
+                    localStorage.setItem("savedRollFour", rolls[slot]);
+                    break;
+
+                case 4:
+                    localStorage.setItem("savedTitleFive", titles[slot]);
+                    localStorage.setItem("savedRollFive", rolls[slot]);
+                    break;
+
+                case 5:
+                    localStorage.setItem("savedTitleSix", titles[slot]);
+                    localStorage.setItem("savedRollSix", rolls[slot]);
+                    break;
+            }
+        }
+
+
+        function Agree() {
+            const saveAgreement = document.getElementById('saveModal');
+            if (!saveAgreement) {
+                return;
+            }
+            saveAgreement.removeAttribute('id');
+            document.querySelector('.saveButton').removeAttribute('data-bs-toggle');
+            document.querySelector('.saveButton').removeAttribute('data-bs-target');
+            localStorage.setItem("XanatharsDiceToEverthingAgreeMent", "Permission");
+        }
+
+        function validateInput(event) {
+            let regex = /^[a-zA-Z0-9\-\+]*$/;
+            let input = event.target.value;
+            console.log(event);
+
+            if (!regex.test(input)) {
+                event.target.value = input.slice(0, -1); // Remove the last character if it does not match the regex
+            }
+        }
+
+
+        function removeLocalStorage() {
+            localStorage.setItem("XanatharsDiceToEverthingAgreeMent", "Reset");
+            localStorage.removeItem("XanatharsDiceToEverthingAgreeMent");
+            localStorage.removeItem("savedTitleOne");
+            localStorage.removeItem("savedRollOne");
+            localStorage.removeItem("savedTitleTwo");
+            localStorage.removeItem("savedRollTwo");
+            localStorage.removeItem("savedTitleThree");
+            localStorage.removeItem("savedRollThree");
+            localStorage.removeItem("savedTitleFour");
+            localStorage.removeItem("savedRollFour");
+            localStorage.removeItem("savedTitleFive");
+            localStorage.removeItem("savedRollFive");
+            localStorage.removeItem("savedTitleSix");
+            localStorage.removeItem("savedRollSix");
+        }
+
+        function rollText(val) {
+            let rolls = [
+                document.getElementById('savedRollOne').value,
+                document.getElementById('savedRollTwo').value,
+                document.getElementById('savedRollThree').value,
+                document.getElementById('savedRollFour').value,
+                document.getElementById('savedRollFive').value,
+                document.getElementById('savedRollSix').value,
+            ];
+
+            inputField.value = rolls[val];
+        }
+
+
+        function clearText() {
+            console.log("Ashton is a normal human being, just like you and me");
+            let updatedValue = inputField.value;
+            updatedValue = "";
+            inputField.value = updatedValue;
+            document.getElementById('result').textContent = 'Rolls:';
+        }
+
+
+        function customDice() {
+            const value = document.getElementById('diceInputCustom').value;
+            addDice(value);
+        }
+
+        function rollDice() {
+            const diceInput = inputField.value;
+            const input = diceInput;
+
+            let pattern = /(\d*)d(\d+)([\+\-]\d+)?/g;
+            let match;
+            let result = 0;
+
+            let allRolls = "";
+
+            while ((match = pattern.exec(input)) !== null) {
+                let numOfDice = match[1] === "" ? 1 : parseInt(match[1]);
+                let typeOfDice = parseInt(match[2]);
+                let modifier = match[3] ? parseInt(match[3]) : 0;
+
+                for (let i = 0; i < numOfDice; i++) {
+                    let adding = Math.floor(Math.random() * typeOfDice) + 1;
+                    allRolls += " " + adding + ",";
+                    result += adding;
+
+                }
+
+                result += modifier;
+            }
+
+            document.getElementById('result').textContent = `Rolls:${allRolls + " Total: " + result}`;
+        }
+
+        function addDice(faces) {
+            const currentDice = inputField.value.match(/(\d+)d(\d+)/g);
+            let updatedValue = inputField.value;
+
+            if (currentDice) {
+                let merged = false;
+
+                currentDice.forEach((dice, index) => {
+                    const [count, currentFaces] = dice.split('d').map(Number);
+
+                    if (faces === currentFaces) {
+                        const updatedCount = count + 1;
+                        updatedValue = updatedValue.replace(dice, `${updatedCount}d${currentFaces}`);
+                        merged = true;
+                    }
+                });
+
+                if (!merged) {
+                    updatedValue += ` 1d${faces}`;
+                }
+            } else {
+                updatedValue = `1d${faces}`;
+            }
+
+            inputField.value = updatedValue;
+        }
+
+        function AddModifier() {
+            let inputedField = document.getElementById('diceInput').value;
+            let newModifier = document.getElementById('newModifier').value;
+            const regex = /([-+]\d+)$/;
+            const match = inputedField.match(regex);
+
+
+            if (newModifier.charAt(0) === '+' || newModifier.charAt(0) === '-') {
+
+            } else {
+                newModifier = "+" + newModifier;
+            }
+
+
+
+            if (match) {
+                const originalValue = match[1];
+                const newValue = newModifier;
+                inputedField = inputedField.replace(originalValue, newValue);
+                document.getElementById('diceInput').value = inputedField;
+            } else {
+                document.getElementById('diceInput').value += newModifier;
+            }
+        }
+
+        var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+        var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+            return new bootstrap.Popover(popoverTriggerEl)
+        })
+
+    </script>
+
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Custom Dice</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <input type="text" class="form-control" placeholder="Enter the amount of sides on your dice (7)"
+                        id="diceInputCustom">
+                </div>
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        onclick="customDice()">Roll</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="modModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Add a Modifier</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <input type="text" class="form-control"
+                        placeholder="Enter the modifier for your dice (5, +8, -2, etc)" id="newModifier">
+                </div>
+
+
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        onclick="AddModifier()">Add</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="modal fade" id="saveModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Use Localdata?</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+
+
+
+                    <p>In order to save your data between sessions, localStorage must be used. It's stored on your
+                        client, and will never be used to identify you or sell your information. It can always be
+                        deleted without a trace with "Reset LocalStorage"</p>
+
+
+
+                </div>
+
+
+
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        onclick="Agree()">Agree</button>
+                    <button type="button" class="btn btn-white" data-bs-dismiss="modal">Close</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
